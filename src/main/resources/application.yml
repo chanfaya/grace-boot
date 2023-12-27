@@ -1,0 +1,9 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /
+
+spring:
+  profiles:
+    # 环境切换：开发环境 dev，正式环境 prod
+    active: dev

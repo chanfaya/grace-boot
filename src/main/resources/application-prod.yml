@@ -1,0 +1,102 @@
+# spring配置
+spring:
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/grace
+    username: root
+    password: 123
+  # 文件上传
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size: 30MB
+      # 设置总上传的文件大小
+      max-request-size: 500MB
+  data:
+    # redis配置
+    redis:
+      # 地址
+      host: localhost
+      # 端口，默认为6379
+      port: 6379
+      # 数据库索引
+      database: 0
+      # 连接超时时间
+      timeout: 10s
+      # 是否开启ssl
+      ssl:
+        enabled: false
+
+redisson:
+  # redis key前缀
+  keyPrefix: ${common.name}
+  # 单节点配置
+  singleServerConfig:
+    # 客户端名称
+    clientName: ${common.name}
+    # 最小空闲连接数
+    connectionMinimumIdleSize: 8
+    # 连接池大小
+    connectionPoolSize: 32
+    # 连接空闲超时，单位：毫秒
+    idleConnectionTimeout: 10000
+    # 命令等待超时，单位：毫秒
+    timeout: 3000
+    # 发布和订阅连接池大小
+    subscriptionConnectionPoolSize: 50
+
+# MyBatis-Plus配置
+mybatis-plus:
+  global-config:
+    db-config:
+      # id生成策略
+      id-type: auto
+  # 搜索指定包别名
+  type-aliases-package: com.grace.**.domain
+  #扫描xml路径
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    #使用jdbc的getGeneratedKeys获取数据库自增主键值
+    use-generated-keys: true
+    #map映射空值替换
+    call-setters-on-nulls: true
+    #使用列别名替换列名
+    use-column-label: true
+    #下划线转驼峰
+    map-underscore-to-camel-case: true
+    #缓存
+    cache-enabled: true
+
+# 防止XSS攻击
+xss:
+  # 过滤开关
+  enabled: true
+  # 排除链接（多个用逗号分隔）
+  excludes: /system/notice/*
+  # 匹配链接
+  urlPatterns: /system/*,/monitor/*
+
+# 全局线程池相关配置
+thread-pool:
+  # 是否开启线程池
+  enabled: true
+  # 队列最大长度
+  queueCapacity: 128
+  # 线程池维护线程所允许的空闲时间
+  keepAliveSeconds: 300
+
+# 用户配置
+user:
+  password:
+    # 密码最大错误次数（默认5次）
+    maxRetryCount: 5
+    # 密码锁定时间（默认10分钟）
+    lockTime: 10
+
+# 项目相关配置
+common:
+  # 项目名称
+  name: grace
+  # 文件路径
+  profile: E:/grace/file
